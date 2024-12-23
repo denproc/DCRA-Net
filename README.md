@@ -30,18 +30,10 @@ pip3 install -r requirements.txt
 
 Download VISTA masks, sample data, and model checkpoints used in the paper.
 ```bash
-# download VISTA masks (TBA)
-curl -O https://link.to.masks
-# unzip masks (TBA)
-tar -xzvf masks.tar.gz
-# download data samples (TBA)
-curl -O https://link.to.sample_data
-# unzip data samples (TBA)
-tar -xzvf sample_data.tar.gz  
-# download checkpoints (TBA)
-curl -O https://link.to.checkpoints
-# extract checkpoints (TBA)
-tar -xzvf model_checkpoints.tar.gz  
+# download VISTA masks, sample data, and model checkpoints
+https://drive.usercontent.google.com/download?id=195UYyNmVAak-QOQWrLB_j_2pJJMkt_tW&export=download&confirm=true
+# extract data
+tar -xzvf data.tar.gz  
 ```
 
 ### Usage
@@ -58,32 +50,28 @@ python3 tratin.py -h
 ```
 
 
-Evaluation using pretrained model on data in `DATADIR`.
+Evaluation of pretrained models.
 ```bash
 # Lattice Underasmpling
-python3 test.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --save_dir ./data/evaluation_fetal_lattice --acceleration 8 --pattern lattice --data_dir DATADIR --checkpoint_path ./data/model_checkpoints/dcranet_fetal_32-96-96_8x_lattice_checkpoint.pt --verbose
+python3 test.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --save_dir DATADIR/evaluation_fetal_lattice --acceleration 8 --pattern lattice --data_dir DATADIR/sample_data/fetal --checkpoint_path DATADIR/model_checkpoints/dcranet_fetal_32-96-96_8x_lattice_checkpoint.pt --verbose
 
 # VISTA Undersampling
-python3 test.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --save_dir ./data/evaluation_fetal_vista --acceleration 8 --pattern vista --mask_ucoef 07 --mask_dir ./data/vista_masks/96x32_acc8_07  --data_dir DATADIR --checkpoint_path ./data/model_checkpoints/dcranet_fetal_32-96-96_8x_vista_checkpoint.pt --verbose 
+python3 test.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --save_dir DATADIR/evaluation_fetal_vista --acceleration 8 --pattern vista --mask_ucoef 07 --mask_dir DATADIR/vista_masks/96x32_acc8_07  --data_dir DATADIR --checkpoint_path DATADIR/model_checkpoints/dcranet_fetal_32-96-96_8x_vista_checkpoint.pt --verbose 
 ```
 
-Training on you training data in `TRAINDATADIR`.
----
-**NOTE**
+### Training the model on your data
 
 The data is expected to be in a form of k-space sequences and to be stored as a directory of files.
 The filename format is `{patient_id}_{other-details}.hdf5`. 
 It is important to have the same `patient_id` for sequences acquired from the same subject for valid `train|val` split.
 
----
-
 
 ```bash
 # Lattice Undersampling
-python3 train.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --start_epoch 0 --n_epochs 10 --save_dir ./data/new_version --acceleration 8 --pattern lattice --data_dir TRAINDATADIR --verbose
+python3 train.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --start_epoch 0 --n_epochs 10 --save_dir DATADIR/new_version --acceleration 8 --pattern lattice --data_dir DATADIR/training_data --verbose
 
 # VISTA Undersmapling
-python3 train.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --start_epoch 0 --n_epochs 10 --save_dir ./data/new_version --acceleration 8 --pattern vista --mask_ucoef 07 --mask_dir ./data/vista_masks/96x32_acc8_07  --data_dir TRAINDATADIR --verbose
+python3 train.py --backbone DCRA-Net --dc_mode force --image_size 96 --n_frames 32 --representation_time frequency --in_channels 2 --out_channels 2 --batch_size 1 --start_epoch 0 --n_epochs 10 --save_dir ./data/new_version --acceleration 8 --pattern vista --mask_ucoef 07 --mask_dir DATADIR/vista_masks/96x32_acc8_07  --data_dir DATADIR/training_data --verbose
 
 ```
 
