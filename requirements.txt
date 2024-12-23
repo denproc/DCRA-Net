@@ -1,0 +1,15 @@
+torch==2.0.1
+torchvision==0.15.2
+transformers==4.46.3
+diffusers[torch]==0.31.0
+matplotlib==3.9.2
+pandas==2.2.3
+h5py==3.12.1
+mrirecon==0.0.2
+tensorboard[and-cuda]==2.11
+einops==0.8.0
+scikit-learn==1.5.2
+piq==0.8.0
+video-diffusion-pytorch==0.6.3
+rotary-embedding-torch==0.3.5
+numpy<2.0
