@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 Download VISTA masks, sample data, and model checkpoints used in the paper.
 ```bash
 # download VISTA masks, sample data, and model checkpoints
-https://drive.usercontent.google.com/download?id=195UYyNmVAak-QOQWrLB_j_2pJJMkt_tW&export=download&confirm=true
+curl -o data.tar.gz "https://drive.usercontent.google.com/download?id=195UYyNmVAak-QOQWrLB_j_2pJJMkt_tW&export=download&confirm=true"
 # extract data
 tar -xzvf data.tar.gz  
 ```
